@@ -49,8 +49,13 @@ curl http://127.0.0.1:17900/v1/models
 
 | Client | Endpoint | Models available in beta |
 | --- | --- | --- |
-| Codex (`wire_api = "responses"`) | `http://127.0.0.1:17900/v1` | `chatgpt-web/*` (native), `deepseek-web/*`, `qwen-web/*`, `kimi-web/*`, `gemini-web/*`, `perplexity-web/*`, `mimo-web/*`, `meta-web/*` and `grok-web/*` (translated) |
-| DSH / Open WebUI / OpenAI-compatible | `http://127.0.0.1:17900/v1` | `deepseek-web/*`, `qwen-web/*`, `kimi-web/*`, `gemini-web/*`, `perplexity-web/*`, `mimo-web/*`, `meta-web/*` and `grok-web/*` (native), `chatgpt-web/*` (translated) |
+| Codex (`wire_api = "responses"`) | `http://127.0.0.1:17900/v1` | `deepseek-web/*`, `qwen-web/*`, `kimi-web/*`, `gemini-web/*`, `perplexity-web/*`, `mimo-web/*`, `meta-web/*` and `grok-web/*` (translated) |
+| DSH / Open WebUI / OpenAI-compatible | `http://127.0.0.1:17900/v1` | `deepseek-web/*`, `qwen-web/*`, `kimi-web/*`, `gemini-web/*`, `perplexity-web/*`, `mimo-web/*`, `meta-web/*` and `grok-web/*` (native) |
+
+> `chatgpt-web` is intentionally absent from the shipped config: it needs the **production**
+> `codex-chatgpt-web` launcher session (and its MCP connector with Auth **None**). The DEV launcher
+> profile cannot serve a Responses listener. Add the entry back in `config.json` once that daemon
+> listens on `127.0.0.1:17841`.
 
 Model ids are `provider/model` and never contain `:`. The hub rewrites the upstream model id
 (`upstreamModel`) and preserves the bridge's SSE bytes, usage, errors and cancellation.

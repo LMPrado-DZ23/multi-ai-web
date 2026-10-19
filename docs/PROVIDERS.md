@@ -6,7 +6,7 @@ responding model is identifiable. No provider APIs, no local engines.
 | # | Provider | Transport | Status | Why this position |
 | --- | --- | --- | --- | --- |
 | 1 | **DeepSeek Web** | bridge `:8787` | ✅ validated | Existing bridge, chat dialect, no DOM work; validated natively and through the Responses→Chat translator |
-| 2 | **ChatGPT Web** | bridge `:17841` | ✅ validated | Existing bridge, Responses dialect; MCP/Full Harness stays exclusive to it |
+| 2 | **ChatGPT Web** | bridge `:17841` | optional (not in config) | Needs the production launcher session + MCP connector with Auth None; the DEV profile cannot serve Responses. Add it back when `:17841` listens |
 | 3 | **Qwen Web** | bridge `:8788` | ✅ validated | Native login; `QWEN-ONE`/`QWEN-TWO` + `HUB-QWEN-*` |
 | 4 | **Kimi** | bridge `:8788` | ✅ validated | Native login; `KIMI-BRIDGE`/`KIMI-STREAM` + `HUB-KIMI-*` |
 | 5 | **Gemini** | bridge `:8788` | ✅ validated | Google native login; `GEMINI-OK`/`GEMINI-STREAM` + `HUB-GEMINI-*` |

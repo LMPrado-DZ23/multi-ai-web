@@ -133,22 +133,6 @@
           "displayName": "Grok (web)"
         }
       ]
-    },
-    {
-      "id": "chatgpt-web",
-      "label": "ChatGPT Web",
-      "baseUrl": "http://127.0.0.1:17841",
-      "dialect": "responses",
-      "healthPath": "/health",
-      "models": [
-        {
-          "id": "gpt-5.6-sol",
-          "hubId": "chatgpt-web/gpt-5.6-sol",
-          "upstreamModel": "chatgpt-web/gpt-5.6-sol",
-          "displayName": "ChatGPT Web (Sol)",
-          "contextWindow": 256000
-        }
-      ]
     }
   ]
 }
