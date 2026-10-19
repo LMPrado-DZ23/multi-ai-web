@@ -49,8 +49,8 @@ curl http://127.0.0.1:17900/v1/models
 
 | Client | Endpoint | Models available in beta |
 | --- | --- | --- |
-| Codex (`wire_api = "responses"`) | `http://127.0.0.1:17900/v1` | `chatgpt-web/*` (native), `deepseek-web/*`, `qwen-web/*` and `kimi-web/*` (translated) |
-| DSH / Open WebUI / OpenAI-compatible | `http://127.0.0.1:17900/v1` | `deepseek-web/*`, `qwen-web/*` and `kimi-web/*` (native), `chatgpt-web/*` (translated) |
+| Codex (`wire_api = "responses"`) | `http://127.0.0.1:17900/v1` | `chatgpt-web/*` (native), `deepseek-web/*`, `qwen-web/*`, `kimi-web/*` and `gemini-web/*` (translated) |
+| DSH / Open WebUI / OpenAI-compatible | `http://127.0.0.1:17900/v1` | `deepseek-web/*`, `qwen-web/*`, `kimi-web/*` and `gemini-web/*` (native), `chatgpt-web/*` (translated) |
 
 Model ids are `provider/model` and never contain `:`. The hub rewrites the upstream model id
 (`upstreamModel`) and preserves the bridge's SSE bytes, usage, errors and cancellation.

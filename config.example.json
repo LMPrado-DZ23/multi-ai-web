@@ -60,6 +60,21 @@
       ]
     },
     {
+      "id": "gemini-web",
+      "label": "Gemini Web",
+      "baseUrl": "http://127.0.0.1:8788",
+      "dialect": "chat",
+      "healthPath": "/health",
+      "models": [
+        {
+          "id": "gemini-pro",
+          "hubId": "gemini-web/gemini-pro",
+          "upstreamModel": "gemini/gemini-pro",
+          "displayName": "Gemini (web)"
+        }
+      ]
+    },
+    {
       "id": "chatgpt-web",
       "label": "ChatGPT Web",
       "baseUrl": "http://127.0.0.1:17841",
