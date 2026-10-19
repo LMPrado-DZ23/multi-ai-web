@@ -1,0 +1,20 @@
+{
+  "name": "multi-ai-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local hub that exposes logged-in web AI chats (ChatGPT, DeepSeek, ...) through one catalogue for Codex, DSH, Cursor and Open WebUI.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.mjs serve",
+    "test": "node --test",
+    "verify": "node --test && node src/index.mjs check --config config.example.json",
+    "check": "node src/index.mjs check",
+    "models": "node src/index.mjs models",
+    "health": "node src/index.mjs health",
+    "smoke": "node scripts/smoke-live.mjs"
+  },
+  "license": "MIT"
+}

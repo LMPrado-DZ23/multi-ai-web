@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "host": "127.0.0.1",
+  "port": 17900,
+  "authToken": null,
+  "providers": [
+    {
+      "id": "deepseek-web",
+      "label": "DeepSeek Web",
+      "baseUrl": "http://127.0.0.1:8787",
+      "dialect": "chat",
+      "healthPath": "/health",
+      "models": [
+        {
+          "id": "chat",
+          "hubId": "deepseek-web/chat",
+          "upstreamModel": "deepseek-web",
+          "displayName": "DeepSeek Web (Chat)",
+          "contextWindow": 131072
+        },
+        {
+          "id": "think",
+          "hubId": "deepseek-web/think",
+          "upstreamModel": "deepseek-web-think",
+          "displayName": "DeepSeek Web (Think)",
+          "contextWindow": 131072,
+          "thinking": true
+        }
+      ]
+    },
+    {
+      "id": "chatgpt-web",
+      "label": "ChatGPT Web",
+      "baseUrl": "http://127.0.0.1:17841",
+      "dialect": "responses",
+      "healthPath": "/health",
+      "models": [
+        {
+          "id": "gpt-5.6-sol",
+          "hubId": "chatgpt-web/gpt-5.6-sol",
+          "upstreamModel": "chatgpt-web/gpt-5.6-sol",
+          "displayName": "ChatGPT Web (Sol)",
+          "contextWindow": 256000
+        }
+      ]
+    }
+  ]
+}
