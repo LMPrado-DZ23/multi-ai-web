@@ -45,6 +45,21 @@
       ]
     },
     {
+      "id": "kimi-web",
+      "label": "Kimi",
+      "baseUrl": "http://127.0.0.1:8788",
+      "dialect": "chat",
+      "healthPath": "/health",
+      "models": [
+        {
+          "id": "kimi-k2",
+          "hubId": "kimi-web/kimi-k2",
+          "upstreamModel": "kimi/kimi-k2",
+          "displayName": "Kimi (web)"
+        }
+      ]
+    },
+    {
       "id": "chatgpt-web",
       "label": "ChatGPT Web",
       "baseUrl": "http://127.0.0.1:17841",
