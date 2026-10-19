@@ -150,6 +150,21 @@
         }
       ],
       "codexTurnMetadata": true
+    },
+    {
+      "id": "auto-web",
+      "label": "Auto (hub)",
+      "baseUrl": "http://127.0.0.1:17900",
+      "dialect": "chat",
+      "healthPath": "/v1/models",
+      "models": [
+        {
+          "id": "auto",
+          "hubId": "auto-web/auto",
+          "upstreamModel": "auto",
+          "displayName": "Auto (melhor provedor disponível)"
+        }
+      ]
     }
   ]
 }

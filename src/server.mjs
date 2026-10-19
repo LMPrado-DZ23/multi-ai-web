@@ -55,7 +55,8 @@ export function createHubServer(config, { fetchImpl = fetch, providerHealthTimeo
 async function handleRequest(request, response, config, deps) {
   const url = new URL(request.url ?? "/", `http://${config.host}:${config.port}`);
   if (request.method === "GET" && url.pathname === "/health") {
-    const providers = await Promise.all(config.providers.map(provider => checkProvider(provider, deps)));
+    const checked = config.providers.filter(provider => provider.id !== "auto-web");
+    const providers = await Promise.all(checked.map(provider => checkProvider(provider, deps)));
     sendJson(response, 200, {
       ok: providers.every(provider => provider.ok),
       version: HUB_VERSION,
@@ -84,6 +85,33 @@ async function handleRequest(request, response, config, deps) {
       throw new HttpError(404, "model_not_found", `Unknown model: ${hubModelId}. Call GET /v1/models.`);
     }
     const { provider, model } = found;
+    if (provider.id === "auto-web") {
+      const targets = autoTargets(config);
+      if (targets.length === 0) {
+        throw new HttpError(503, "provider_unavailable", "No providers configured for auto mode");
+      }
+      let lastError;
+      for (const target of targets) {
+        try {
+          await deps.queues.run(target.provider.id, () => proxyTurn(request, response, {
+            provider: target.provider,
+            model: target.model,
+            dialect,
+            translates: target.provider.dialect !== dialect,
+            body,
+            url,
+            fetchImpl: deps.fetchImpl,
+          }));
+          return;
+        } catch (error) {
+          lastError = error;
+          if (response.headersSent) throw error;
+        }
+      }
+      throw lastError instanceof HttpError
+        ? lastError
+        : new HttpError(502, "provider_unavailable", "Auto mode could not reach any provider");
+    }
     // Both directions are translated now: Responses clients reach Chat bridges and vice versa.
     const translates = provider.dialect !== dialect;
     // One in-flight turn per provider: concurrent turns would fight over the bridge's browser.
@@ -99,6 +127,19 @@ async function handleRequest(request, response, config, deps) {
     return;
   }
   throw new HttpError(404, "not_found", `Unknown route: ${request.method} ${url.pathname}`);
+}
+
+/**
+ * Targets for the virtual `auto-web/auto` model: every real provider in catalog order, using its
+ * first model. The turn is retried on the next provider while no response headers were sent.
+ */
+function autoTargets(config) {
+  const targets = [];
+  for (const provider of config.providers) {
+    if (provider.id === "auto-web") continue;
+    if (provider.models.length > 0) targets.push({ provider, model: provider.models[0] });
+  }
+  return targets;
 }
 
 /**
