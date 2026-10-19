@@ -11,6 +11,10 @@ responding model is identifiable. No provider APIs, no local engines.
 | 4 | **Kimi** | bridge `:8788` | ✅ validated | Native login; `KIMI-BRIDGE`/`KIMI-STREAM` + `HUB-KIMI-*` |
 | 5 | **Gemini** | bridge `:8788` | ✅ validated | Google native login; `GEMINI-OK`/`GEMINI-STREAM` + `HUB-GEMINI-*` |
 | 6 | **Perplexity** | bridge `:8788` | ✅ validated | `PERPLEXITY-OK`/`PERPLEXITY-STREAM` + `HUB-PERPLEXITY-*`; the site-selected model is explicit in `displayName` |
+| 7 | **MiMo Studio** | bridge `:8788` | ✅ validated | Xiaomi/Google login; `MIMO-FIX`/`MIMO-STREAM` + `HUB-MIMO-*` |
+| 8 | **Meta AI** | bridge `:8788` | ✅ validated | `META-OK` + `HUB-META-CHAT`/`HUB-META-RESP` |
+| 9 | **Grok** | bridge `:8788` | planned | Native login window opened; pending validation |
+| 10 | **Microsoft Copilot** | bridge `:8788` | planned | Native login window opened; pending validation |
 | 7 | **Mistral Le Chat** | — | ⛔ excluded | Cloudflare bot challenge; never bypassed |
 | 8 | **Claude Web** | — | ⛔ excluded | Cloudflare bot challenge; never bypassed |
 | 9 | **Z.ai / GLM** | — | ⛔ excluded | Slider CAPTCHA ("drag the slider"); never bypassed |

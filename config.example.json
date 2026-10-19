@@ -90,6 +90,36 @@
       ]
     },
     {
+      "id": "mimo-web",
+      "label": "Xiaomi MiMo Studio",
+      "baseUrl": "http://127.0.0.1:8788",
+      "dialect": "chat",
+      "healthPath": "/health",
+      "models": [
+        {
+          "id": "mimo-v2.6",
+          "hubId": "mimo-web/mimo-v2.6",
+          "upstreamModel": "mimo/mimo-v2.6",
+          "displayName": "MiMo Studio (V2.6-Pro)"
+        }
+      ]
+    },
+    {
+      "id": "meta-web",
+      "label": "Meta AI",
+      "baseUrl": "http://127.0.0.1:8788",
+      "dialect": "chat",
+      "healthPath": "/health",
+      "models": [
+        {
+          "id": "meta-ai",
+          "hubId": "meta-web/meta-ai",
+          "upstreamModel": "meta/meta-ai",
+          "displayName": "Meta AI (web)"
+        }
+      ]
+    },
+    {
       "id": "chatgpt-web",
       "label": "ChatGPT Web",
       "baseUrl": "http://127.0.0.1:17841",
