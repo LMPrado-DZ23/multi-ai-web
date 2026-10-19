@@ -120,6 +120,21 @@
       ]
     },
     {
+      "id": "grok-web",
+      "label": "Grok",
+      "baseUrl": "http://127.0.0.1:8788",
+      "dialect": "chat",
+      "healthPath": "/health",
+      "models": [
+        {
+          "id": "grok-web",
+          "hubId": "grok-web/grok-web",
+          "upstreamModel": "grok/grok-web",
+          "displayName": "Grok (web)"
+        }
+      ]
+    },
+    {
       "id": "chatgpt-web",
       "label": "ChatGPT Web",
       "baseUrl": "http://127.0.0.1:17841",
