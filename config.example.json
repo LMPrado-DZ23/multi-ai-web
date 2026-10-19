@@ -29,6 +29,22 @@
       ]
     },
     {
+      "id": "qwen-web",
+      "label": "Qwen Web",
+      "baseUrl": "http://127.0.0.1:8788",
+      "dialect": "chat",
+      "healthPath": "/health",
+      "models": [
+        {
+          "id": "qwen3.7-plus",
+          "hubId": "qwen-web/qwen3.7-plus",
+          "upstreamModel": "qwen/qwen3.7-plus",
+          "displayName": "Qwen Web (3.7-Plus)",
+          "contextWindow": 131072
+        }
+      ]
+    },
+    {
       "id": "chatgpt-web",
       "label": "ChatGPT Web",
       "baseUrl": "http://127.0.0.1:17841",
