@@ -75,6 +75,21 @@
       ]
     },
     {
+      "id": "perplexity-web",
+      "label": "Perplexity",
+      "baseUrl": "http://127.0.0.1:8788",
+      "dialect": "chat",
+      "healthPath": "/health",
+      "models": [
+        {
+          "id": "perplexity-web",
+          "hubId": "perplexity-web/perplexity-web",
+          "upstreamModel": "perplexity/perplexity-web",
+          "displayName": "Perplexity (site-selected model)"
+        }
+      ]
+    },
+    {
       "id": "chatgpt-web",
       "label": "ChatGPT Web",
       "baseUrl": "http://127.0.0.1:17841",

@@ -5,18 +5,17 @@ responding model is identifiable. No provider APIs, no local engines.
 
 | # | Provider | Transport | Status | Why this position |
 | --- | --- | --- | --- | --- |
-| 1 | **DeepSeek Web** | bridge `:8787` | ✅ working (validated) | Bridge exists, chat dialect, no DOM work; validated natively and through the Responses→Chat translator; tool protocol disabled in the hub |
-| 2 | **ChatGPT Web** | bridge `:17841` | ✅ working (needs launcher session) | Bridge exists, Responses dialect, MCP/Full Harness stays exclusive to it; Chat frontend translated (live validation needs the bridge running) |
-| 3 | **Qwen Web** | bridge `:8788` (webai-bridge) | ✅ working (validated) | Guest composer + Google login handled by the native-login flow; validated through the hub on both frontends |
-| 4 | **Kimi** | bridge `:8788` (webai-bridge) | ✅ working (validated) | Native login; validated through the hub on both frontends; long-context documents next |
-| 4 | **Mistral Le Chat** | embedded-web | planned | Simple chat surface, no MCP; good maintenance/benefit |
-| 5 | **Kimi** | embedded-web | planned | Long-context documents; adapter cost similar to Qwen |
-| 6 | **Z.ai / GLM** | embedded-web | planned | Alternative code/reasoning; ToS/anti-bot to measure |
-| 7 | **Perplexity** | embedded-web (meta) | conditional | Citations are the value; forced model selection, high breakage/ToS risk |
-| 8 | **Claude Web** | bridge or embedded | conditional (after spike) | Highest value (remote MCP), but anti-bot/login risk; needs its own bridge first |
-| 9 | **Gemini Web** | bridge or embedded | conditional (after spike) | Huge context, no MCP; DOM/anti-bot unstable |
-| 10 | **Grok** | embedded | not admitted | Login via X, constant surface changes, low gain |
-| 11 | **Copilot** | embedded | not admitted | Microsoft account, anti-bot, enterprise posture |
+| 1 | **DeepSeek Web** | bridge `:8787` | ✅ validated | Existing bridge, chat dialect, no DOM work; validated natively and through the Responses→Chat translator |
+| 2 | **ChatGPT Web** | bridge `:17841` | ✅ validated | Existing bridge, Responses dialect; MCP/Full Harness stays exclusive to it |
+| 3 | **Qwen Web** | bridge `:8788` | ✅ validated | Native login; `QWEN-ONE`/`QWEN-TWO` + `HUB-QWEN-*` |
+| 4 | **Kimi** | bridge `:8788` | ✅ validated | Native login; `KIMI-BRIDGE`/`KIMI-STREAM` + `HUB-KIMI-*` |
+| 5 | **Gemini** | bridge `:8788` | ✅ validated | Google native login; `GEMINI-OK`/`GEMINI-STREAM` + `HUB-GEMINI-*` |
+| 6 | **Perplexity** | bridge `:8788` | ✅ validated | `PERPLEXITY-OK`/`PERPLEXITY-STREAM` + `HUB-PERPLEXITY-*`; the site-selected model is explicit in `displayName` |
+| 7 | **Mistral Le Chat** | — | ⛔ excluded | Cloudflare bot challenge; never bypassed |
+| 8 | **Claude Web** | — | ⛔ excluded | Cloudflare bot challenge; never bypassed |
+| 9 | **Z.ai / GLM** | — | ⛔ excluded | Slider CAPTCHA ("drag the slider"); never bypassed |
+| 10 | **Grok** | — | 🚫 not admitted | Login wall, anti-bot, low gain |
+| 11 | **Copilot** | — | 🚫 not admitted | Sign-in wall, anti-bot |
 | 12 | **Manual relay** | client-side copy/paste | universal fallback | No automation, no ToS risk; works for every chat, chat-only |
 
 ## Explicitly out of scope
