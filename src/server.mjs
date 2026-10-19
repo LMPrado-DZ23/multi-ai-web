@@ -101,6 +101,52 @@ async function handleRequest(request, response, config, deps) {
   throw new HttpError(404, "not_found", `Unknown route: ${request.method} ${url.pathname}`);
 }
 
+/**
+ * The codex-chatgpt-web bridge routes `chatgpt-web/*` models through its browser adapter, which
+ * requires native Codex turn metadata: a turn_id per request plus per-item passthrough metadata.
+ * Generic OpenAI clients do not send it, so the hub synthesizes it for providers that opt in.
+ */
+function decorateCodexWebTurn(body) {
+  const random = () => crypto.randomUUID().replaceAll("-", "");
+  const turnId = `turn_${random()}`;
+  const threadId = typeof body.prompt_cache_key === "string" && body.prompt_cache_key
+    ? body.prompt_cache_key
+    : `thread_${random()}`;
+  const metadata = {
+    thread_id: threadId,
+    turn_id: turnId,
+    request_kind: "turn",
+    sandbox: "none",
+    workspaces: {},
+  };
+  const rawInput = Array.isArray(body.input)
+    ? body.input
+    : [{ type: "message", role: "user", content: [{ type: "input_text", text: String(body.input ?? "") }] }];
+  const environment = {
+    type: "message",
+    role: "user",
+    content: [{
+      type: "input_text",
+      text: "<environment_context>\n  <cwd>hub</cwd>\n  <filesystem><permission_profile type=\"disabled\"><file_system type=\"unrestricted\" /></permission_profile></filesystem>\n</environment_context>",
+    }],
+    internal_chat_message_metadata_passthrough: { turn_id: turnId },
+  };
+  const input = [environment, ...rawInput.map(item => (item && typeof item === "object"
+    ? { ...item, internal_chat_message_metadata_passthrough: { turn_id: turnId } }
+    : item))];
+  return {
+    body: {
+      ...body,
+      input,
+      client_metadata: {
+        ...(body.client_metadata && typeof body.client_metadata === "object" ? body.client_metadata : {}),
+        "x-codex-turn-metadata": JSON.stringify(metadata),
+      },
+    },
+    headers: { "x-codex-turn-metadata": JSON.stringify(metadata) },
+  };
+}
+
 async function proxyTurn(request, response, { provider, model, dialect, translates, body, fetchImpl }) {
   const upstreamPath = provider.dialect === "chat" ? "/v1/chat/completions" : "/v1/responses";
   let upstreamBody;
@@ -116,6 +162,13 @@ async function proxyTurn(request, response, { provider, model, dialect, translat
     upstreamBody = { ...body, model: model.upstreamModel };
   }
 
+  let extraHeaders = {};
+  if (provider.codexTurnMetadata && provider.dialect === "responses") {
+    const decorated = decorateCodexWebTurn(upstreamBody);
+    upstreamBody = decorated.body;
+    extraHeaders = decorated.headers;
+  }
+
   const controller = new AbortController();
   const onClose = () => {
     if (!response.writableEnded) controller.abort();
@@ -127,6 +180,7 @@ async function proxyTurn(request, response, { provider, model, dialect, translat
       method: "POST",
       headers: {
         "content-type": "application/json",
+        ...extraHeaders,
         ...(typeof request.headers.accept === "string" ? { accept: request.headers.accept } : {}),
       },
       body: JSON.stringify(upstreamBody),

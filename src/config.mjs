@@ -46,6 +46,9 @@ export function validateConfig(raw) {
     if (typeof healthPath !== "string" || !healthPath.startsWith("/")) {
       throw new Error(`${label}.healthPath must start with /`);
     }
+    if (entry.codexTurnMetadata !== undefined && typeof entry.codexTurnMetadata !== "boolean") {
+      throw new Error(`${label}.codexTurnMetadata must be a boolean`);
+    }
     if (!Array.isArray(entry.models) || entry.models.length === 0) {
       throw new Error(`${label}.models must be a non-empty array`);
     }
@@ -100,6 +103,7 @@ export function validateConfig(raw) {
       baseUrl,
       dialect: entry.dialect,
       healthPath,
+      codexTurnMetadata: entry.codexTurnMetadata === true,
       models,
     };
   });
