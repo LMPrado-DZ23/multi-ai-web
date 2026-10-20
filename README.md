@@ -4,10 +4,12 @@ Local hub that exposes **logged-in web AI chats** through one catalogue for Code
 and Open WebUI. No provider API keys, no local engines: every model is a real web session driven
 by a local bridge (or, later, by an embedded-web adapter owned by this hub).
 
-> **Beta scope (0.1.0):** bridge upstreams with **bidirectional wire translation**. Responses
-> clients (Codex) can use Chat bridges (DeepSeek) and Chat clients (DSH/Open WebUI) can use
-> Responses bridges (ChatGPT), with text, usage and function calls. Embedded-web providers (Qwen
-> first) are the next phase.
+> **Stable release 1.0.0:** one loopback catalogue for **10 models across 9 providers** —
+> ChatGPT Web (Luna), DeepSeek (chat/think), Qwen, Kimi, Gemini, Perplexity, MiMo Studio, Meta AI
+> and Grok — plus **`auto-web/auto`** (tries providers in catalogue order and falls back on
+> failure). Validated through both frontends (`/v1/chat/completions` and `/v1/responses`), with
+> per-provider serial queues, bidirectional wire translation, `doctor` 9/9 and 23/23 tests.
+> Integrates with DSH through the `multi-ai-web` provider (`integracoes/bloco-compartilhado.yml`).
 
 ## Why
 
