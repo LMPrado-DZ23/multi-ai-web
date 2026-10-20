@@ -8,6 +8,28 @@ by a local bridge (or, later, by an embedded-web adapter owned by this hub).
 > processos, login e expiração de sessões, clientes (Codex, DSH, Python, curl), modo `auto`,
 > segurança e diagnóstico.
 
+## Dependências — o hub sozinho não responde
+
+O hub **não fala com nenhum site**. Cada modelo vem de uma **ponte local**, que é um repositório
+separado e precisa estar rodando. Instale apenas as pontes dos provedores que você quer usar:
+
+| Ponte | Porta | Provedores | Repositório |
+| --- | --- | --- | --- |
+| **webai-bridge** | `8788` | Qwen, Kimi, Gemini, Perplexity, MiMo Studio, Meta AI, Grok | https://github.com/LMPrado-DZ23/webai-bridge |
+| **deepseek-web-bridge** | `8787` | DeepSeek Web (chat e think) | https://github.com/LMPrado-DZ23/deepseek-web-bridge |
+| **codex-chatgpt-web** (fork DZ23) | `17841` | ChatGPT Web (browser-only, modelo Luna) | https://github.com/LMPrado-DZ23/codex-chatgpt-web |
+
+**Instalação mínima:** `multi-ai-web` + **`webai-bridge`** = 7 modelos.
+**Catálogo completo (10):** as três pontes + o `multi-ai-web`.
+
+> Só com `multi-ai-web` o hub sobe, mas **nenhum modelo responde** (todos aparecem `unreachable` no
+> `doctor`). O login das pontes é por máquina e não vem no clone: cada uma tem seu próprio
+> `login` (o ChatGPT usa o login do Bun dentro do fork).
+
+Cada ponte também funciona sozinha, sem o hub: `webai-bridge` e `deepseek-web-bridge` respondem
+`POST /v1/chat/completions`; o ChatGPT responde `POST /v1/responses`. O hub só agrega, traduz e
+serializa.
+
 > **Stable release 1.0.0:** one loopback catalogue for **10 models across 9 providers** —
 > ChatGPT Web (Luna), DeepSeek (chat/think), Qwen, Kimi, Gemini, Perplexity, MiMo Studio, Meta AI
 > and Grok — plus **`auto-web/auto`** (tries providers in catalogue order and falls back on

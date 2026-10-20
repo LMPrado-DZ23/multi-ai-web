@@ -1,6 +1,6 @@
 {
   "name": "multi-ai-web",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Local hub that exposes logged-in web AI chats (ChatGPT, DeepSeek, ...) through one catalogue for Codex, DSH, Cursor and Open WebUI.",
   "type": "module",

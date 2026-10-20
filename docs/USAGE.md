@@ -23,6 +23,22 @@ hub multi-ai-web  :17900  ── catálogo único + tradução Chat↔Responses 
 - Cada modelo é uma **sessão web real** dirigida por uma ponte local.
 - Provedores com anti-bot (Cloudflare, slider CAPTCHA, CDN block) ficam **fora** e não há bypass.
 
+### 1.1 Dependências — cada modelo vem de uma ponte (outro repositório)
+
+O hub **não fala com sites**. Instale e suba as pontes dos provedores que quiser usar:
+
+| Ponte | Porta | Provedores | Repositório |
+| --- | --- | --- | --- |
+| **webai-bridge** | `8788` | Qwen, Kimi, Gemini, Perplexity, MiMo, Meta, Grok | https://github.com/LMPrado-DZ23/webai-bridge |
+| **deepseek-web-bridge** | `8787` | DeepSeek Web (chat/think) | https://github.com/LMPrado-DZ23/deepseek-web-bridge |
+| **codex-chatgpt-web** (fork) | `17841` | ChatGPT Web (Luna, browser-only) | https://github.com/LMPrado-DZ23/codex-chatgpt-web |
+
+- **Mínimo:** `multi-ai-web` + `webai-bridge` → 7 modelos.
+- **Completo:** as três pontes + `multi-ai-web` → 10 modelos.
+- Só com `multi-ai-web`: o hub sobe, mas **nenhum modelo responde** (`unreachable` no `doctor`).
+- As pontes também funcionam sozinhas (endpoint OpenAI próprio); o hub apenas agrega, traduz e
+  serializa.
+
 ---
 
 ## 2. Requisitos
