@@ -142,7 +142,7 @@ correspondente. O ChatGPT se renova com o `login` do Bun mostrado em 4.4.
 | Modelo no hub | Provedor | Observação |
 | --- | --- | --- |
 | `auto-web/auto` | hub | tenta os provedores na ordem do catálogo e cai no próximo |
-| `chatgpt-web/luna` | ChatGPT Web | browser-only; sem ferramentas locais; conta Luna |
+| `chatgpt-web/luna` | ChatGPT Web | browser-only; sem ferramentas locais; conta Luna — orçamento real de ~28k tokens por turno (use `contextWindow: 24000` no cliente) |
 | `deepseek-web/chat` | DeepSeek Web | chat |
 | `deepseek-web/think` | DeepSeek Web | raciocínio em `reasoning_content` |
 | `qwen-web/qwen3.7-plus` | Qwen | |
@@ -283,6 +283,7 @@ Invoke-RestMethod http://127.0.0.1:17841/health
 | `MISSING_CREDENTIAL` no DSH | `MULTI_AI_WEB_KEY` não está no `refs` do `.credentials.yaml` (ou sem indentação) | adicione `  MULTI_AI_WEB_KEY: valor` sob `refs:` ou salve pela página Models |
 | `502 model_catalog_failed` no `:17841/v1/models` | catálogo **nativo** do bridge exige token do Codex | ignore: o hub usa os modelos `chatgpt-web/*`; não chame `/v1/models` do bridge |
 | `GPT-5.6 Sol (Web) is not available for this Luna-only account` | conta ChatGPT sem o modelo | use `chatgpt-web/luna` |
+| `exceeds the measured 28,000-token ChatGPT Free browser transport budget` | a conversa passou do orçamento do Luna (~28k/turno) | abra **nova conversa** e configure `contextWindow: 24000` no cliente |
 | `requires native Codex turn_id metadata` | cliente não manda metadados nativos | use o hub (ele injeta quando `codexTurnMetadata: true`) |
 | `authentication_error` 401 | hub com `authToken` configurado | envie `Authorization: Bearer <token>` |
 | porta ocupada | processo anterior | `Get-NetTCPConnection -LocalPort 17900` e encerre o PID |
