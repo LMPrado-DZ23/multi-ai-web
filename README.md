@@ -4,6 +4,10 @@ Local hub that exposes **logged-in web AI chats** through one catalogue for Code
 and Open WebUI. No provider API keys, no local engines: every model is a real web session driven
 by a local bridge (or, later, by an embedded-web adapter owned by this hub).
 
+> 📘 **Guia completo de uso:** [`docs/USAGE.md`](docs/USAGE.md) — instalação, subida dos quatro
+> processos, login e expiração de sessões, clientes (Codex, DSH, Python, curl), modo `auto`,
+> segurança e diagnóstico.
+
 > **Stable release 1.0.0:** one loopback catalogue for **10 models across 9 providers** —
 > ChatGPT Web (Luna), DeepSeek (chat/think), Qwen, Kimi, Gemini, Perplexity, MiMo Studio, Meta AI
 > and Grok — plus **`auto-web/auto`** (tries providers in catalogue order and falls back on
